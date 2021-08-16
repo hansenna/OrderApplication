@@ -1,0 +1,27 @@
+﻿@page
+@model OrderApplication.Pages.ReceiptTextModel
+@using OrderApplication.Models
+@{
+    ViewData["Title"] = "Receipt Text";
+}
+
+@{
+    var receipt = Receipt.MakeReceipt(Model.Order.OrderItems, Model.Discounts, Model.Products);
+}
+<div>
+    Item,Qty,Unit Price,Total<br />
+
+    @foreach (var receiptItem in receipt.receiptItems)
+    {
+        <span>@receiptItem.ItemDescription,@receiptItem.ItemQuantity,$@receiptItem.ItemPrice.ToString(".00"),$@receiptItem.ItemCostOriginal().ToString(".00")</span><br />
+        @if (null != receiptItem.discount)
+        {
+            <span>(Discount: @receiptItem.discount.MinAmount or more; save @(receiptItem.discount.DiscountFraction*100)%),,,-$@receiptItem.ItemDiscount().ToString(".00")</span><br />
+        }
+    }
+
+    Subtotal:,,,$@receipt.Subtotal().ToString(".00")<br />
+    Sales Tax:,,,$@receipt.SalesTaxTotal().ToString(".00")<br />
+    Total:,,,$@receipt.Total().ToString(".00")<br />
+    (Total discounts applied):,,,$@receipt.TotalDiscounts().ToString(".00")<br />
+</div>

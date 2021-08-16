@@ -1,0 +1,23 @@
+﻿@page
+@model IndexModel
+@using OrderApplication.Models
+@{
+    ViewData["Title"] = "Receipt HTML";
+}
+
+@{var receipt = Receipt.MakeReceipt(Model.Order.OrderItems, Model.Discounts, Model.Products);}
+<table>
+    <tr><th>Item</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr>
+    @foreach (var receiptItem in receipt.receiptItems)
+    {
+        <tr><td>@receiptItem.ItemDescription</td><td>@receiptItem.ItemQuantity</td><td>$@receiptItem.ItemPrice.ToString(".00")</td><td>$@receiptItem.ItemCostOriginal().ToString(".00")</td></tr>
+        @if (null != receiptItem.discount)
+        {
+            <tr><td>(Discount: @receiptItem.discount.MinAmount or more; save @(receiptItem.discount.DiscountFraction*100)%)</td><td></td><td></td><td>-$@receiptItem.ItemDiscount().ToString(".00")</td></tr>
+        }
+    }
+    <tr><td>Subtotal</td><td></td><td></td><td>$@receipt.Subtotal().ToString(".00")</td></tr>
+    <tr><td>Sales Tax</td><td></td><td></td><td>$@receipt.SalesTaxTotal().ToString(".00")</td></tr>
+    <tr><td>Total</td><td></td><td></td><td>$@receipt.Total().ToString(".00")</td></tr>
+    <tr><td>(Total discounts applied)</td><td></td><td></td><td>$@receipt.TotalDiscounts().ToString(".00")</td></tr>
+</table>

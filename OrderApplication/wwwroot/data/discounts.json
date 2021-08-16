@@ -1,0 +1,20 @@
+[
+  {
+    "id": 2,
+    "productid": 6,
+    "minamount": 10,
+    "discountfraction": 0.05
+  },
+  {
+    "id": 7,
+    "productid": 2,
+    "minamount": 20,
+    "discountfraction": 0.15
+  },
+  {
+    "id": 4,
+    "productid": 9,
+    "minamount": 5,
+    "discountfraction": 0.1
+  }
+]

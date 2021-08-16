@@ -1,0 +1,17 @@
+{
+  "id": 5,
+  "orderitems": [
+    {
+      "productid": 6,
+      "amount": 12
+    },
+    {
+      "productid": 2,
+      "amount": 5
+    },
+    {
+      "productid": 9,
+      "amount": 5
+    }
+  ]
+}
